@@ -64,6 +64,7 @@ type RegisterHousePayload struct {
 	ImgUrl string `json:"imgUrl" validate:"required"`
 	IsSold bool `json:"isSold"`
 	AgentID uint `json:"agentId"`
+	AreaSqFt int `json:"areaSqFt" validate:"required"`
 	
 }
 

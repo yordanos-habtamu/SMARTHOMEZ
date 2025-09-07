@@ -3,7 +3,7 @@ package houses
 import (
 	"database/sql"
 	"fmt"
-
+	
 
 	"github.com/yordanos-habtamu/realstate/types"
 )
@@ -165,7 +165,7 @@ er := s.db.QueryRow(`
     RETURNING id, type, address, price, num_bedrooms, num_bathrooms,
               area_sq_ft, description, img_url, created_at, updated_at,
               is_sold, agent_id
-`,payload.Address, payload.Price, payload.NumBedrooms, numBathrooms, areaSqFt, description, imgURL, isSold, agentID, houseID).Scan(
+`,payload.Address, payload.Price, payload.NumBedrooms, payload.NumBathrooms, payload.AreaSqFt, payload.Description, payload.ImgUrl, payload.IsSold, payload.AgentID,id).Scan(
     &updatedHouse.ID,
     &updatedHouse.Category,
     &updatedHouse.Address,
@@ -184,4 +184,99 @@ if er != nil {
     return nil, er
 }
 return &updatedHouse, nil
+}
+
+func(s *Store) DeleteHouse(id uint) error {
+   _,err := s.db.Exec("Delete from house where id = $1 ",id)
+   if err!=nil{
+    return fmt.Errorf("error deleting house: %v",err)
+   }
+    return nil
+}
+
+func (s *Store) GetHousesByPriceRange(minPrice,maxPrice float64) ([]types.House, error) {
+    rows, err := s.db.Query("SELECT id,type,address,price,num_bedrooms,num_bathrooms, area_sq_ft, description,img_url,created_at, updated_at,is_sold,agent_id FROM house where price <= $1 or price >=2",maxPrice,minPrice)
+    if err != nil {
+        return nil, fmt.Errorf("error fetching houses: %v", err)
+    }
+    defer rows.Close()
+
+    houses := []types.House{}
+
+    for rows.Next() {
+        h := types.House{}
+        err := rows.Scan(
+         &h.ID,
+		&h.Category,
+        &h.Address,
+        &h.Price,
+        &h.NumBedrooms,
+		&h.NumBathrooms,
+		&h.AreaSqFt,
+        &h.Description,
+		&h.ImageURL,
+        &h.CreatedAt,
+		&h.UpdatedAt,
+		&h.IsSold,
+		&h.AgentID,
+        )
+        if err != nil {
+            return nil, fmt.Errorf("error scanning house: %v", err)
+        }
+        houses = append(houses, h)
+    }
+
+    if err := rows.Err(); err != nil {
+        return nil, fmt.Errorf("rows iteration error: %v", err)
+    }
+
+    if len(houses) == 0 {
+        return nil, fmt.Errorf("no users found")
+    }
+
+    return houses, nil
+}
+
+func(s *Store) GetLatestHouses(limit int) ([]types.House,error){
+    query := "SELECT id,type,address,price,num_bedrooms,num_bathrooms, area_sq_ft, description,img_url,created_at, updated_at,is_sold,agent_id FROM house ORDER BY created_at DESC LIMIT $1"
+    rows, err := s.db.Query(query, limit)
+    if err != nil {
+        return nil, fmt.Errorf("error fetching houses: %v", err)
+    }
+    defer rows.Close()
+
+    houses := []types.House{}
+
+    for rows.Next() {
+        h := types.House{}
+        err := rows.Scan(
+         &h.ID,
+		&h.Category,
+        &h.Address,
+        &h.Price,
+        &h.NumBedrooms,
+		&h.NumBathrooms,
+		&h.AreaSqFt,
+        &h.Description,
+		&h.ImageURL,
+        &h.CreatedAt,
+		&h.UpdatedAt,
+		&h.IsSold,
+		&h.AgentID,
+        )
+        if err != nil {
+            return nil, fmt.Errorf("error scanning house: %v", err)
+        }
+        houses = append(houses, h)
+    }
+
+    if err := rows.Err(); err != nil {
+        return nil, fmt.Errorf("rows iteration error: %v", err)
+    }
+
+    if len(houses) == 0 {
+        return nil, fmt.Errorf("no users found")
+    }
+
+    return houses, nil
 }

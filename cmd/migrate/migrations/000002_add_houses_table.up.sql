@@ -5,7 +5,7 @@ CREATE TABLE IF NOT EXISTS House (
     `price` DECIMAL(10, 2) NOT NULL, -- Price of the house
     `num_bedrooms` INT NOT NULL, -- Number of bedrooms
     `num_bathrooms` INT NOT NULL, -- Number of bathrooms
-    `area_sq_ft` INT NOT NULL, -- Area in square feet
+    `area_sq_ft` DECIMAL(10,2) NOT NULL, -- Area in square feet
     `description` TEXT, -- Description of the house
     `created_at` TIMESTAMP NOT NULL DEFAULT NOW(),
     `updated_at` TIMESTAMP NOT NULL DEFAULT NOW(), -- Record creation time
