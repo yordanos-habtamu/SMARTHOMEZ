@@ -1,0 +1,1 @@
+Drop Table Houses If Exists;

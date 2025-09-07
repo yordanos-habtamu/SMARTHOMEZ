@@ -1,0 +1,12 @@
+# Binaries for programs and plugins
+*.exe
+*.dll
+*.so
+*.dylib
+.env
+
+# Build output directories
+bin/
+build/
+out/
+node_modules/
