@@ -68,3 +68,7 @@ func GetUserIdfromContext(ctx context.Context) uint {
 	user := ctx.Value("user").(*types.User)
 	return user.ID
 }
+func GetUserfromContext(ctx context.Context) (*types.User) {
+	user := ctx.Value("user").(*types.User)
+	return user;
+}

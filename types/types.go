@@ -11,7 +11,7 @@ type UserStore interface{
 }
 
 type HouseStore interface {
-	CreateHouse(House) (error)
+	CreateHouse(RegisterHousePayload) (error)
  	GetHouseByAddress(address string) (*House, error)
 	GetHouseById(id uint) (*House, error)
 	GetAllHouses() ([]House, error)
