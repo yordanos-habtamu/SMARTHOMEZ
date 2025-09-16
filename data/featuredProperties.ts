@@ -1,0 +1,53 @@
+
+const featuredProperties: Property[]=[
+      {
+        id:"1",
+        title:"Luxury Villa in Beverly Hills",
+        description:"Experience the epitome of luxury living in this stunning villa located in the heart of Beverly Hills. This property boasts exquisite architecture, lush gardens, and state-of-the-art amenities.",
+        image:"/images/villa.webp",
+        category:"Luxury",
+        bedrooms:5,
+        bathrooms:6,
+        squareFeet:7500,
+        price:3000000,
+        listedDate:"2023-10-01",
+      },
+       {
+        id:"2",
+        title:"Cozy Living",
+        description:"Need a summer break in a cozy house then this is probably your choice. The house has all the things you need",
+        image:"/images/cozy.webp",
+        category:"House",
+        bedrooms:5,
+        bathrooms:6,
+        squareFeet:7500,
+        price:3000000,
+        listedDate:"2023-10-01",
+      },
+         {
+        id:"3",
+        title:"Apartement",
+        description:"Live at the center of the city in a luxury apartment.",
+        image:"/images/condo.jpg",
+        category:"Apartment",
+        bedrooms:5,
+        bathrooms:6,
+        squareFeet:7500,
+        price:3000000,
+        listedDate:"2023-10-01",
+      },
+         {
+        id:"4",
+        title:"Villa",
+        description:"Experience the epitome of luxury living in this stunning villa located in the heart of Beverly Hills. This property boasts exquisite architecture, lush gardens, and state-of-the-art amenities.",
+        image:"/images/cozy2.webp",
+        category:"Villa",
+        bedrooms:5,
+        bathrooms:6,
+        squareFeet:7500,
+        price:3000000,
+        listedDate:"2023-10-01",
+      },
+    
+]
+export default featuredProperties;
