@@ -27,34 +27,51 @@ func NewStore (db *sql.DB) *Store {
 	GetHousesByPriceRange(minPrice, maxPrice float64) ([]House, error)
 	GetLatestHouses(limit int) ([]House, error)
 	*/
-func (s *Store) GetHousesByCategory(category string) (*types.House, error) {
-    h := new(types.House)
-    row := s.db.QueryRow("SELECT id,type,address,price,num_bedrooms,num_bathrooms, area_sq_ft, description,img_url,created_at, updated_at,is_sold,agent_id FROM house WHERE category = $1",category)
-
-    err := row.Scan(
-        &h.ID,
-		&h.Category,
-        &h.Address,
-        &h.Price,
-        &h.NumBedrooms,
-		&h.NumBathrooms,
-		&h.AreaSqFt,
-        &h.Description,
-		&h.ImageURL,
-        &h.CreatedAt,
-		&h.UpdatedAt,
-		&h.IsSold,
-		&h.AgentID,
-    )
+func (s *Store) GetHousesByCategory(category string) ([]types.House, error) {
+    rows, err := s.db.Query(`SELECT id,type,address,price,num_bedrooms,num_bathrooms,
+        area_sq_ft,description,img_url,created_at,updated_at,is_sold,agent_id
+        FROM house WHERE category = $1`, category)
     if err != nil {
-        if err == sql.ErrNoRows {
-            return nil, fmt.Errorf("house not found")
+        return nil, fmt.Errorf("error querying houses: %v", err)
+    }
+    defer rows.Close()
+
+    houses := []types.House{}
+
+    for rows.Next() {
+        var h types.House
+        err := rows.Scan(
+            &h.ID,
+            &h.Category,
+            &h.Address,
+            &h.Price,
+            &h.NumBedrooms,
+            &h.NumBathrooms,
+            &h.AreaSqFt,
+            &h.Description,
+            &h.ImageURL,
+            &h.CreatedAt,
+            &h.UpdatedAt,
+            &h.IsSold,
+            &h.AgentID,
+        )
+        if err != nil {
+            return nil, fmt.Errorf("error scanning house: %v", err)
         }
-        return nil, err
+        houses = append(houses, h)
     }
 
-     return h, nil
+    if err := rows.Err(); err != nil {
+        return nil, fmt.Errorf("rows iteration error: %v", err)
+    }
+
+    if len(houses) == 0 {
+        return nil, fmt.Errorf("no houses found for category %s", category)
+    }
+
+    return houses, nil
 }
+
 
 
 func (s *Store) GetAllHouses() ([]types.House, error) {
@@ -100,7 +117,7 @@ func (s *Store) GetAllHouses() ([]types.House, error) {
     return houses, nil
 }
 
-func (s *Store) GetHouseById(id int) (*types.House,error){
+func (s *Store) GetHouseById(id uint) (*types.House,error){
   rows := s.db.QueryRow("SELECT * FROM house WHERE id = $1",id)
   h := new(types.House)
   err := rows.Scan(
@@ -147,7 +164,7 @@ func (s *Store) CreateHouse(h types.House) error {
 
 func (s *Store) UpdateHouse(id uint, payload types.RegisterHousePayload) (*types.House,error){
 
-	i,err := s.GetHouseById(int(id));
+	i,err := s.GetHouseById(uint(id));
 	if err != nil {
 		return nil,fmt.Errorf("Something happened %v",err);
 	}
@@ -236,6 +253,37 @@ func (s *Store) GetHousesByPriceRange(minPrice,maxPrice float64) ([]types.House,
 
     return houses, nil
 }
+
+func (s *Store) GetHouseByAddress(address string) (*types.House, error) {
+    row := s.db.QueryRow(`SELECT id,type,address,price,num_bedrooms,num_bathrooms,area_sq_ft,description,img_url,created_at,updated_at,is_sold,agent_id 
+                           FROM house WHERE address = $1 LIMIT 1`, address)
+
+    var h types.House
+    err := row.Scan(
+        &h.ID,
+        &h.Category,
+        &h.Address,
+        &h.Price,
+        &h.NumBedrooms,
+        &h.NumBathrooms,
+        &h.AreaSqFt,
+        &h.Description,
+        &h.ImageURL,
+        &h.CreatedAt,
+        &h.UpdatedAt,
+        &h.IsSold,
+        &h.AgentID,
+    )
+    if err != nil {
+        if err == sql.ErrNoRows {
+            return &types.House{}, fmt.Errorf("house not found")
+        }
+        return &types.House{}, fmt.Errorf("error scanning house: %v", err)
+    }
+
+    return &h, nil
+}
+
 
 func(s *Store) GetLatestHouses(limit int) ([]types.House,error){
     query := "SELECT id,type,address,price,num_bedrooms,num_bathrooms, area_sq_ft, description,img_url,created_at, updated_at,is_sold,agent_id FROM house ORDER BY created_at DESC LIMIT $1"

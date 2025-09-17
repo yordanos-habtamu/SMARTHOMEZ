@@ -19,6 +19,7 @@ func main() {
 		config.Envs.DB_ADDR, // e.g. "localhost:5432"
 		config.Envs.DB_NAME,
 	)
+	fmt.Println(dsn)
 
 	// Initialize PostgreSQL storage
 	db, err := db.NewPostgresStorage(dsn)
@@ -28,7 +29,7 @@ func main() {
 
 	initStorage(db)
 
-	server := api.NewApiServer(":8080", db)
+	server := api.NewApiServer(":4000", db)
 	if err := server.Run(); err != nil {
 		log.Fatal(err)
 	}

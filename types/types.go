@@ -11,7 +11,7 @@ type UserStore interface{
 }
 
 type HouseStore interface {
-	CreateHouse(RegisterHousePayload) (error)
+	CreateHouse(House) (error)
  	GetHouseByAddress(address string) (*House, error)
 	GetHouseById(id uint) (*House, error)
 	GetAllHouses() ([]House, error)
@@ -32,6 +32,7 @@ type User struct {
 	Sex string `json:"sex"`
 	Email string     `json:"email"`
 	DoB time.Time   `json:"DoB"`
+	Contact string `json:"contact"`
 	Password string  `json:"password"`
 	CreatedAt time.Time `json:"createdAt"`
 	Role   string  `json:"role"`

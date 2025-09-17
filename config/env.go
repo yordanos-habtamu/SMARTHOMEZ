@@ -24,12 +24,12 @@ type Config struct {
 	godotenv.Load()
  return Config{
 PUBLIC_HOST:getEnv("PUBLIC_HOST","http://localhost"),
-	PORT:getEnv("PORT","8080"),
-	DB_PORT: getEnv("DB_PORT","3306"),
+	PORT:getEnv("PORT","4000"),
+	DB_PORT: getEnv("DB_PORT","5432"),
 	DB_USER: getEnv("DB_USER","creed47"),
-	DB_PWD: getEnv("DB_PWD",",mypassword"),
+	DB_PWD: getEnv("DB_PASSWORD",",mypassword"),
 	DB_NAME: getEnv("DB_NAME","realstate"),
-	DB_ADDR: fmt.Sprintf("%s:%s",getEnv("PUBLIC_HOST","db"),getEnv("DB_PORT","5432")),	
+	DB_ADDR: fmt.Sprintf("%s:%s",getEnv("PUBLIC_HOST","localhost"),getEnv("DB_PORT","5432")),	
     JWTExpiration: getEnvAsInt("JWTExpiration",3600 * 24 * 7),
 	JWT_SECRET: getEnv("JWT_SECRET","$2b$10$yG7Ivndj5Q7FxXHvfY1Xh.1yqFOsclCAXPYygwKopAZwgUDEn2WS6"),
 }

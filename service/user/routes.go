@@ -119,8 +119,10 @@ func (h *Handler) handleRegister(w http.ResponseWriter, r *http.Request) {
 		Email:     payload.Email,
 		Password:  hashedPassword,
 		DoB:       dob,
+		Contact: payload.Contact,
 		Sex:       payload.Sex,
 		Role:      payload.Role,
+
 	})
 	if err != nil {
 		log.Printf("Error creating user: %v", err)
