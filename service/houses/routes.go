@@ -6,7 +6,6 @@ import (
 	"net/http"
 	"strconv"
 
-
 	"github.com/gorilla/mux"
 	"github.com/yordanos-habtamu/realstate/service/auth"
 	"github.com/yordanos-habtamu/realstate/types"
@@ -119,6 +118,10 @@ func (h *Handler) handleRegisterhouse(w http.ResponseWriter, r *http.Request) {
 		AgentID:      uint(agentID),
 		AreaSqFt:     areaSqFt,
 	}
+
+	// Convert payload to House struct
+	dbHouse := utils.MapPayloadToHouse(house)
+
 	if err := utils.Validate.Struct(house); err != nil {
 		log.Printf("Validation error: %v", err)
 		utils.WriteError(w, http.StatusBadRequest, fmt.Errorf("invalid house data"))
@@ -126,7 +129,7 @@ func (h *Handler) handleRegisterhouse(w http.ResponseWriter, r *http.Request) {
 	}
 	newerr := h.store.CreateHouse(dbHouse)
 	if newerr != nil {
-		utils.WriteError(w, http.StatusBadRequest, err)
+		utils.WriteError(w, http.StatusBadRequest, newerr)
 		return
 	}
 
