@@ -36,14 +36,14 @@ type ReferralStore interface {
 }
 
 type User struct {
-	ID        uint      `json:"Id"`
-	FirstName string    `json:"firstName"`
-	LastName  string    `json:"lastName"`
-	Sex       string    `json:"sex"`
-	Email     string    `json:"email"`
-	DoB       time.Time `json:"DoB"`
-	Contact   string    `json:"contact"`
-	Password  string    `json:"password"`
+	ID  uint  `json:"Id"`
+	FirstName string `json:"firstName"`
+	LastName string   `json:"lastName"`
+	Sex string `json:"sex"`
+	Email string     `json:"email"`
+	DoB time.Time   `json:"DoB"`
+	Contact string `json:"contact"`
+	Password string  `json:"password"`
 	CreatedAt time.Time `json:"createdAt"`
 	Role      string    `json:"role"`
 }

@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"strconv"
 
+
 	"github.com/gorilla/mux"
 	"github.com/yordanos-habtamu/realstate/service/auth"
 	"github.com/yordanos-habtamu/realstate/types"
@@ -42,11 +43,11 @@ func (h *Handler) handleRegisterhouse(w http.ResponseWriter, r *http.Request) {
 	var user = auth.GetUserfromContext(r.Context())
 	var house types.RegisterHousePayload
 	if user.Role != "admin" {
-		utils.WriteError(w, http.StatusForbidden, fmt.Errorf("agent and client can not add houses"))
+		utils.WriteError(w, http.StatusForbidden, fmt.Errorf("Agent and Client can not add houses"))
 		return
 	}
 	if err := r.ParseMultipartForm(10 << 20); err != nil {
-		utils.WriteError(w, http.StatusBadRequest, fmt.Errorf("failed to parse the form %v", err))
+		utils.WriteError(w, http.StatusBadRequest, fmt.Errorf("Failed to parse the form %v", err))
 		return
 	}
 
@@ -118,7 +119,6 @@ func (h *Handler) handleRegisterhouse(w http.ResponseWriter, r *http.Request) {
 		AgentID:      uint(agentID),
 		AreaSqFt:     areaSqFt,
 	}
-	dbHouse := utils.MapPayloadToHouse(house)
 	if err := utils.Validate.Struct(house); err != nil {
 		log.Printf("Validation error: %v", err)
 		utils.WriteError(w, http.StatusBadRequest, fmt.Errorf("invalid house data"))

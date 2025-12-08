@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"net/http"
 	"strconv"
-  	"github.com/yordanos-habtamu/realstate/types"
+
 	"github.com/go-playground/validator/v10"
 )
 
@@ -33,19 +33,4 @@ func StringToUint(str string) (uint, error) {
         return 0, err
     }
     return uint(value), nil
-}
-
-func MapPayloadToHouse(payload types.RegisterHousePayload) types.House {
-    return types.House{
-        Category:     payload.Category,
-        Address:      payload.Address,
-        Price:        payload.Price,
-        NumBedrooms:  payload.NumBedrooms,
-        NumBathrooms: payload.NumBathrooms,
-        AreaSqFt:     payload.AreaSqFt,
-        Description:  payload.Description,
-        ImageURL:     payload.ImgUrl,
-        IsSold:       payload.IsSold,
-        AgentID:      payload.AgentID,
-    }
 }
