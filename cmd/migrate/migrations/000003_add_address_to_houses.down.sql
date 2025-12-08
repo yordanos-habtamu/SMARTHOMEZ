@@ -1,0 +1,1 @@
+ALTER TABLE house DROP COLUMN address;

@@ -5,6 +5,7 @@ import (
 	"log"
 	"net/http"
 	"time"
+
 	"github.com/go-playground/validator/v10"
 	"github.com/gorilla/mux"
 	"github.com/yordanos-habtamu/realstate/config"
@@ -14,16 +15,21 @@ import (
 )
 
 type Handler struct {
-	store types.UserStore
+	store         types.UserStore
+	referralStore types.ReferralStore
 }
 
-func NewHandler(store types.UserStore) *Handler {
-	return &Handler{store: store}
+func NewHandler(store types.UserStore, referralStore types.ReferralStore) *Handler {
+	return &Handler{
+		store:         store,
+		referralStore: referralStore,
+	}
 }
 
 func (h *Handler) RegisterRoutes(router *mux.Router) {
 	router.HandleFunc("/login", h.handleLogin).Methods("POST")
 	router.HandleFunc("/register", h.handleRegister).Methods("POST")
+	router.HandleFunc("/register/agent", h.handleRegisterAgent).Methods("POST")
 }
 
 func (h *Handler) handleLogin(w http.ResponseWriter, r *http.Request) {
@@ -110,7 +116,7 @@ func (h *Handler) handleRegister(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Invalid Date of Birth format, expected YYYY-MM-DD", http.StatusBadRequest)
 		return
 	}
-     
+
 	fmt.Println(payload.Role)
 	// Create the user in the database
 	err = h.store.CreateUser(types.User{
@@ -119,10 +125,9 @@ func (h *Handler) handleRegister(w http.ResponseWriter, r *http.Request) {
 		Email:     payload.Email,
 		Password:  hashedPassword,
 		DoB:       dob,
-		Contact: payload.Contact,
+		Contact:   payload.Contact,
 		Sex:       payload.Sex,
 		Role:      payload.Role,
-
 	})
 	if err != nil {
 		log.Printf("Error creating user: %v", err)
@@ -130,6 +135,95 @@ func (h *Handler) handleRegister(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	// Get the created user to get their ID
+	createdUser, err := h.store.GetUserByEmail(payload.Email)
+	if err != nil {
+		log.Printf("Error fetching created user: %v", err)
+	}
+
+	// Track referral signup if referral code was provided
+	if payload.ReferralCode != "" && createdUser != nil && h.referralStore != nil {
+		referralCode, err := h.referralStore.GetReferralByShortCode(payload.ReferralCode)
+		if err == nil && referralCode != nil {
+			// Track the signup
+			ipAddress := r.RemoteAddr
+			userAgent := r.UserAgent()
+			err = h.referralStore.TrackSignup(referralCode.ID, createdUser.ID, ipAddress, userAgent)
+			if err != nil {
+				log.Printf("Error tracking referral signup: %v", err)
+			}
+			// Update signup count
+			err = h.referralStore.UpdateSignupCount(referralCode.ID)
+			if err != nil {
+				log.Printf("Error updating signup count: %v", err)
+			}
+		}
+	}
+
 	// Success response
 	utils.WriteJson(w, http.StatusCreated, map[string]string{"message": "User created successfully"})
+}
+
+func (h *Handler) handleRegisterAgent(w http.ResponseWriter, r *http.Request) {
+	// Get the payload
+	var payload types.RegisterUserPayload
+	if err := utils.ParseJson(r, &payload); err != nil {
+		utils.WriteError(w, http.StatusBadRequest, err)
+		return
+	}
+
+	// Force role to be agent
+	payload.Role = "agent"
+
+	// Validate input
+	if err := utils.Validate.Struct(payload); err != nil {
+		error := err.(validator.ValidationErrors)
+		utils.WriteError(w, http.StatusBadRequest, fmt.Errorf("invalid request data: %s", error))
+		return
+	}
+
+	// Check if the user already exists
+	_, err := h.store.GetUserByEmail(payload.Email)
+	if err == nil {
+		utils.WriteError(w, http.StatusBadRequest, fmt.Errorf("user with email %s already exists", payload.Email))
+		return
+	}
+
+	// Hash the password before saving
+	hashedPassword, err := auth.HashPassword(payload.Password)
+	if err != nil {
+		log.Printf("Error hashing password: %v", err)
+		utils.WriteError(w, http.StatusInternalServerError, fmt.Errorf("error processing password"))
+		return
+	}
+
+	// Parse Date of Birth
+	layout := "2006-01-02"
+	log.Printf("Received DoB: %s", payload.DoB)
+	dob, err := time.Parse(layout, payload.DoB)
+	if err != nil {
+		log.Printf("Error parsing DoB: %v", err)
+		http.Error(w, "Invalid Date of Birth format, expected YYYY-MM-DD", http.StatusBadRequest)
+		return
+	}
+
+	// Create the agent user in the database
+	err = h.store.CreateUser(types.User{
+		FirstName: payload.FirstName,
+		LastName:  payload.LastName,
+		Email:     payload.Email,
+		Password:  hashedPassword,
+		DoB:       dob,
+		Contact:   payload.Contact,
+		Sex:       payload.Sex,
+		Role:      "agent",
+	})
+	if err != nil {
+		log.Printf("Error creating agent: %v", err)
+		http.Error(w, "Error creating agent", http.StatusInternalServerError)
+		return
+	}
+
+	// Success response
+	utils.WriteJson(w, http.StatusCreated, map[string]string{"message": "Agent registered successfully"})
 }
