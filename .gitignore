@@ -2,6 +2,8 @@
 # Git worktrees (always ignore!)
 # ----------------------------------------------------
 branches/
+PROJECT_NOTES/
+.vscode/
 
 # ----------------------------------------------------
 # Node / Nuxt
