@@ -2,10 +2,10 @@ package api
 
 import (
 	"database/sql"
-	"log"
 	"net/http"
 
 	"github.com/gorilla/mux"
+	"github.com/yordanos-habtamu/realstate/internal/logger"
 	"github.com/yordanos-habtamu/realstate/service/houses"
 	"github.com/yordanos-habtamu/realstate/service/referral"
 	"github.com/yordanos-habtamu/realstate/service/user"
@@ -30,7 +30,7 @@ func (s *ApiServer) Run() error {
 
 	// Initialize Cloudinary
 	if err := utils.InitCloudinary(); err != nil {
-		log.Printf("Warning: Cloudinary not initialized: %v", err)
+		logger.Log.Warnw("Cloudinary not initialized", "error", err)
 	}
 
 	userStore := user.NewStore(s.db)
@@ -46,6 +46,6 @@ func (s *ApiServer) Run() error {
 	referralHandler := referral.NewHandler(referralStore, userStore)
 	referralHandler.RegisterRoutes(subrouter)
 
-	log.Printf("listening on %s", s.addr)
+	logger.Log.Infow("Server listening", "address", s.addr)
 	return http.ListenAndServe(s.addr, router)
 }

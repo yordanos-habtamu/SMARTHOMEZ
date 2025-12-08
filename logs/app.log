@@ -1,0 +1,3 @@
+{"L":"\u001b[34mINFO\u001b[0m","T":"2025-12-08T15:10:26.883+0300","C":"cmd/main.go:18","M":"Starting SMARTHOMEZ Backend Server..."}
+{"L":"\u001b[34mINFO\u001b[0m","T":"2025-12-08T15:10:26.910+0300","C":"cmd/main.go:54","M":"Database connected successfully"}
+{"L":"\u001b[34mINFO\u001b[0m","T":"2025-12-08T15:10:26.912+0300","C":"api/api.go:49","M":"Server listening","address":":4000"}
