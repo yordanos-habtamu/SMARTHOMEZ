@@ -1,3 +1,18 @@
 {"L":"\u001b[34mINFO\u001b[0m","T":"2025-12-08T15:10:26.883+0300","C":"cmd/main.go:18","M":"Starting SMARTHOMEZ Backend Server..."}
 {"L":"\u001b[34mINFO\u001b[0m","T":"2025-12-08T15:10:26.910+0300","C":"cmd/main.go:54","M":"Database connected successfully"}
 {"L":"\u001b[34mINFO\u001b[0m","T":"2025-12-08T15:10:26.912+0300","C":"api/api.go:49","M":"Server listening","address":":4000"}
+{"L":"\u001b[34mINFO\u001b[0m","T":"2025-12-08T23:13:53.781+0300","C":"cmd/main.go:18","M":"Starting SMARTHOMEZ Backend Server..."}
+{"L":"\u001b[31mFATAL\u001b[0m","T":"2025-12-08T23:13:53.864+0300","C":"cmd/main.go:50","M":"Database ping failed","error":"failed to connect to `user=creed47 database=realstate`: 127.0.0.1:5432 (localhost): failed SASL auth: FATAL: password authentication failed for user \"creed47\" (SQLSTATE 28P01)","S":"main.initStorage\n\t/home/creed47/Desktop/RealState/branches/backend/cmd/main.go:50\nmain.main\n\t/home/creed47/Desktop/RealState/branches/backend/cmd/main.go:37\nruntime.main\n\t/usr/local/go/src/runtime/proc.go:283"}
+{"L":"\u001b[34mINFO\u001b[0m","T":"2025-12-08T23:19:17.139+0300","C":"cmd/main.go:18","M":"Starting SMARTHOMEZ Backend Server..."}
+{"L":"\u001b[31mFATAL\u001b[0m","T":"2025-12-08T23:19:17.141+0300","C":"cmd/main.go:50","M":"Database ping failed","error":"failed to connect to `user=creed47 database=localhost:5432/realstate`: hostname resolving error: lookup http: no such host","S":"main.initStorage\n\t/home/creed47/Desktop/RealState/branches/backend/cmd/main.go:50\nmain.main\n\t/home/creed47/Desktop/RealState/branches/backend/cmd/main.go:37\nruntime.main\n\t/usr/local/go/src/runtime/proc.go:283"}
+{"L":"\u001b[34mINFO\u001b[0m","T":"2025-12-08T23:22:55.927+0300","C":"cmd/main.go:18","M":"Starting SMARTHOMEZ Backend Server..."}
+{"L":"\u001b[31mFATAL\u001b[0m","T":"2025-12-08T23:22:55.930+0300","C":"cmd/main.go:50","M":"Database ping failed","error":"failed to connect to `user=creed47 database=localhost:5432/realstate`: hostname resolving error: lookup http: no such host","S":"main.initStorage\n\t/home/creed47/Desktop/RealState/branches/backend/cmd/main.go:50\nmain.main\n\t/home/creed47/Desktop/RealState/branches/backend/cmd/main.go:37\nruntime.main\n\t/usr/local/go/src/runtime/proc.go:283"}
+{"L":"\u001b[34mINFO\u001b[0m","T":"2025-12-08T23:26:21.510+0300","C":"cmd/main.go:18","M":"Starting SMARTHOMEZ Backend Server..."}
+{"L":"\u001b[34mINFO\u001b[0m","T":"2025-12-08T23:26:22.992+0300","C":"cmd/main.go:54","M":"Database connected successfully"}
+{"L":"\u001b[34mINFO\u001b[0m","T":"2025-12-08T23:26:22.993+0300","C":"api/api.go:49","M":"Server listening","address":":4000"}
+{"L":"\u001b[34mINFO\u001b[0m","T":"2025-12-08T23:31:08.813+0300","C":"cmd/main.go:18","M":"Starting SMARTHOMEZ Backend Server..."}
+{"L":"\u001b[34mINFO\u001b[0m","T":"2025-12-08T23:31:08.825+0300","C":"cmd/main.go:54","M":"Database connected successfully"}
+{"L":"\u001b[34mINFO\u001b[0m","T":"2025-12-08T23:31:08.825+0300","C":"api/api.go:49","M":"Server listening","address":":4000"}
+{"L":"\u001b[34mINFO\u001b[0m","T":"2025-12-08T23:34:20.259+0300","C":"cmd/main.go:18","M":"Starting SMARTHOMEZ Backend Server..."}
+{"L":"\u001b[34mINFO\u001b[0m","T":"2025-12-08T23:34:20.304+0300","C":"cmd/main.go:54","M":"Database connected successfully"}
+{"L":"\u001b[34mINFO\u001b[0m","T":"2025-12-08T23:34:20.306+0300","C":"api/api.go:49","M":"Server listening","address":":4000"}
