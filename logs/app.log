@@ -16,3 +16,21 @@
 {"L":"\u001b[34mINFO\u001b[0m","T":"2025-12-08T23:34:20.259+0300","C":"cmd/main.go:18","M":"Starting SMARTHOMEZ Backend Server..."}
 {"L":"\u001b[34mINFO\u001b[0m","T":"2025-12-08T23:34:20.304+0300","C":"cmd/main.go:54","M":"Database connected successfully"}
 {"L":"\u001b[34mINFO\u001b[0m","T":"2025-12-08T23:34:20.306+0300","C":"api/api.go:49","M":"Server listening","address":":4000"}
+{"L":"\u001b[34mINFO\u001b[0m","T":"2025-12-09T14:53:32.885+0300","C":"cmd/main.go:18","M":"Starting SMARTHOMEZ Backend Server..."}
+{"L":"\u001b[34mINFO\u001b[0m","T":"2025-12-09T14:53:32.942+0300","C":"cmd/main.go:54","M":"Database connected successfully"}
+{"L":"\u001b[34mINFO\u001b[0m","T":"2025-12-09T14:53:32.942+0300","C":"api/api.go:49","M":"Server listening","address":":4000"}
+{"L":"\u001b[34mINFO\u001b[0m","T":"2025-12-09T15:02:47.262+0300","C":"cmd/main.go:18","M":"Starting SMARTHOMEZ Backend Server..."}
+{"L":"\u001b[34mINFO\u001b[0m","T":"2025-12-09T15:02:47.272+0300","C":"cmd/main.go:54","M":"Database connected successfully"}
+{"L":"\u001b[34mINFO\u001b[0m","T":"2025-12-09T15:02:47.273+0300","C":"api/api.go:49","M":"Server listening","address":":4000"}
+{"L":"\u001b[34mINFO\u001b[0m","T":"2025-12-09T15:55:40.398+0300","C":"cmd/main.go:18","M":"Starting SMARTHOMEZ Backend Server..."}
+{"L":"\u001b[34mINFO\u001b[0m","T":"2025-12-09T15:55:42.150+0300","C":"cmd/main.go:54","M":"Database connected successfully"}
+{"L":"\u001b[34mINFO\u001b[0m","T":"2025-12-09T15:55:42.151+0300","C":"api/api.go:49","M":"Server listening","address":":4000"}
+{"L":"\u001b[34mINFO\u001b[0m","T":"2025-12-09T16:20:03.073+0300","C":"cmd/main.go:18","M":"Starting SMARTHOMEZ Backend Server..."}
+{"L":"\u001b[34mINFO\u001b[0m","T":"2025-12-09T16:20:03.084+0300","C":"cmd/main.go:54","M":"Database connected successfully"}
+{"L":"\u001b[34mINFO\u001b[0m","T":"2025-12-09T16:20:03.085+0300","C":"api/api.go:49","M":"Server listening","address":":4000"}
+{"L":"\u001b[34mINFO\u001b[0m","T":"2025-12-09T16:26:17.313+0300","C":"cmd/main.go:18","M":"Starting SMARTHOMEZ Backend Server..."}
+{"L":"\u001b[34mINFO\u001b[0m","T":"2025-12-09T16:26:17.324+0300","C":"cmd/main.go:54","M":"Database connected successfully"}
+{"L":"\u001b[34mINFO\u001b[0m","T":"2025-12-09T16:26:17.325+0300","C":"api/api.go:60","M":"Server listening","address":":4000"}
+{"L":"\u001b[34mINFO\u001b[0m","T":"2025-12-09T16:32:32.724+0300","C":"cmd/main.go:18","M":"Starting SMARTHOMEZ Backend Server..."}
+{"L":"\u001b[34mINFO\u001b[0m","T":"2025-12-09T16:32:32.738+0300","C":"cmd/main.go:54","M":"Database connected successfully"}
+{"L":"\u001b[34mINFO\u001b[0m","T":"2025-12-09T16:32:32.738+0300","C":"api/api.go:60","M":"Server listening","address":":4000"}

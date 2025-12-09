@@ -116,7 +116,7 @@ func (h *Handler) handleRegisterhouse(w http.ResponseWriter, r *http.Request) {
 		ImgUrl:       imgUrl, // Use Cloudinary URL
 		IsSold:       isSold,
 		AgentID:      uint(agentID),
-		AreaSqFt:     areaSqFt,
+		AreaSqFt:     float64(areaSqFt),
 	}
 
 	// Convert payload to House struct

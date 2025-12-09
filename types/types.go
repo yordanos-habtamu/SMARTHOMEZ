@@ -53,7 +53,7 @@ type House struct {
 	Price        float64   `json:"price"`
 	NumBathrooms int       `json:"numBathrooms"`
 	NumBedrooms  int       `json:"numRooms"`
-	AreaSqFt     int       `json:"area_sq_ft"`
+	AreaSqFt     float64      `json:"area_sq_ft"`
 	Category     string    `json:"category"`
 	ImageURL     string    `json:"imageUrl"`
 	IsSold       bool      `json:"isSold"`
@@ -74,7 +74,7 @@ type RegisterHousePayload struct {
 	ImgUrl       string  `json:"imgUrl" validate:"required"`
 	IsSold       bool    `json:"isSold"`
 	AgentID      uint    `json:"agentId"`
-	AreaSqFt     int     `json:"areaSqFt" validate:"required"`
+	AreaSqFt     float64     `json:"areaSqFt" validate:"required"`
 }
 
 type RegisterUserPayload struct {

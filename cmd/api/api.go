@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"github.com/gorilla/mux"
+	"github.com/rs/cors"
 	"github.com/yordanos-habtamu/realstate/internal/logger"
 	"github.com/yordanos-habtamu/realstate/service/houses"
 	"github.com/yordanos-habtamu/realstate/service/referral"
@@ -46,6 +47,16 @@ func (s *ApiServer) Run() error {
 	referralHandler := referral.NewHandler(referralStore, userStore)
 	referralHandler.RegisterRoutes(subrouter)
 
+	// CORS Middleware
+	c := cors.New(cors.Options{
+		AllowedOrigins:   []string{"http://localhost:3000", "http://localhost:3001"},
+		AllowedMethods:   []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
+		AllowedHeaders:   []string{"Authorization", "Content-Type"},
+		AllowCredentials: true,
+	})
+
+	handler := c.Handler(router)
+
 	logger.Log.Infow("Server listening", "address", s.addr)
-	return http.ListenAndServe(s.addr, router)
+	return http.ListenAndServe(s.addr, handler)
 }

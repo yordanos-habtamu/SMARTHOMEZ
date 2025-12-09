@@ -37,7 +37,7 @@ func UploadHouseImage(file multipart.File, filename string) (string, error) {
 
 	ctx := context.Background()
 	uploadParams := uploader.UploadParams{
-		Folder:         "houses",
+		Folder:         "realstate/images",
 		PublicID:       filename,
 		ResourceType:   "image",
 		Transformation: "c_limit,w_1200,h_900,q_auto:good",

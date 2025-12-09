@@ -55,6 +55,9 @@ func seedUsers(db *sql.DB) error {
 		DoB       string
 		Sex       string
 	}{
+		// Admin
+		{"Admin", "User", "admin@smarthomez.com", "admin", "+1234567899", "1980-01-01", "male"},
+
 		// Agents
 		{"John", "Doe", "john.agent@smarthomez.com", "agent", "+1234567890", "1985-05-15", "male"},
 		{"Jane", "Smith", "jane.agent@smarthomez.com", "agent", "+1234567891", "1988-08-20", "female"},
