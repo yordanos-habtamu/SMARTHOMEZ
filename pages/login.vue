@@ -78,8 +78,15 @@ const handleLogin = async () => {
 
   try {
     await login(email.value, password.value)
-    // Redirect to dashboard or home based on role
-    await router.push('/dashboard')
+    
+    // Check user role from the auth state
+    const { user } = useAuth()
+    
+    if (user.value?.role === 'admin' || user.value?.role === 'agent') {
+      await router.push('/dashboard')
+    } else {
+      await router.push('/')
+    }
   } catch (err: any) {
     error.value = err.message || 'Login failed. Please check your credentials.'
   } finally {

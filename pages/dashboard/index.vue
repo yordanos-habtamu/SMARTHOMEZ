@@ -5,8 +5,8 @@
       <div class="container mx-auto px-4 py-6">
         <div class="flex justify-between items-center">
           <div>
-            <h1 class="text-3xl font-bold text-gray-800">Agent Dashboard</h1>
-            <p class="text-gray-600 mt-1">Manage your properties and referrals</p>
+            <h1 class="text-3xl font-bold text-gray-800">{{ isAdmin ? 'Admin Dashboard' : 'Agent Dashboard' }}</h1>
+            <p class="text-gray-600 mt-1">{{ isAdmin ? 'Manage system overview' : 'Manage your properties and referrals' }}</p>
           </div>
           <button
             @click="handleLogout"
@@ -146,7 +146,7 @@
 import { useAPI } from '~/composables/useAPI'
 
 const route = useRoute()
-const { logout, token } = useAuth()
+const { logout, token, isAdmin } = useAuth()
 const api = useAPI()
 
 // Fetch referral stats
